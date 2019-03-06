@@ -24,8 +24,7 @@ public class CacheTimeoutAnnotationBeanPostProcessor implements MergedBeanDefini
 				return null;
 			}
 			CacheTimeout cacheTimeout = AnnotationUtils.getAnnotation(method, CacheTimeout.class);
-			long timeOut =  cacheTimeout == null ? 0 :
-					cacheTimeout.value() < 0 ? 0 : cacheTimeout.value();
+			long timeOut =  cacheTimeout == null || cacheTimeout.value() < 0 ? 0 : cacheTimeout.value();
 			for (String cacheName : cacheable.value()) {
 				CacheTimeOutContext.setTimeOut(cacheName, timeOut);
 			}

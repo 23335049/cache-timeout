@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1.0.0
  * @since 2019-03-04
  */
-public class CacheTimeOutContext {
+class CacheTimeOutContext {
 
 	private CacheTimeOutContext() {}
 
@@ -21,7 +21,7 @@ public class CacheTimeOutContext {
 		return cacheTimesMapping.getOrDefault(key, 0L);
 	}
 
-	public static long setTimeOut(String key, long timeOut) {
-		return cacheTimesMapping.put(key, timeOut);
+	public static void setTimeOut(String key, long timeOut) {
+		cacheTimesMapping.put(key, timeOut);
 	}
 }

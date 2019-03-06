@@ -46,14 +46,18 @@ public class MapCache implements Cache {
 
 	@Override
 	public ValueWrapper get(Object key) {
-		return new SimpleValueWrapper(key);
+		ValExpire valExpire = cacheMap.get(key);
+		if (Objects.nonNull(valExpire) && (valExpire.expire >= System.currentTimeMillis())) {
+			return new SimpleValueWrapper(valExpire.val);
+		}
+		return null;
 	}
 
 	@Override
 	public <T> T get(Object key, Class<T> type) {
 		ValExpire valExpire = cacheMap.get(key);
 		if (Objects.nonNull(valExpire) && (valExpire.expire <= System.currentTimeMillis())) {
-			return (T)valExpire.key;
+			return (T)valExpire.val;
 		}
 		return null;
 	}
@@ -98,8 +102,8 @@ public class MapCache implements Cache {
 	}
 
 	static class ValExpire {
-		public ValExpire(Object key, long expire) {
-			this.key = key;
+		public ValExpire(Object val, long expire) {
+			this.val = val;
 			this.expire = expire;
 		}
 
@@ -107,7 +111,7 @@ public class MapCache implements Cache {
 			return new ValExpire(key, expire);
 		}
 
-		Object key;
+		Object val;
 		long expire;
 	}
 }

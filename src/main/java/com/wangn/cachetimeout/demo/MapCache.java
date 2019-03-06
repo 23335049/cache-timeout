@@ -19,11 +19,11 @@ public class MapCache implements Cache {
 
 	private String name;
 
-	private long timeOut;
+	private long timeout;
 
-	private MapCache(String name, long timeOut) {
+	private MapCache(String name, long timeout) {
 		this.name = name;
-		this.timeOut = timeOut;
+		this.timeout = timeout;
 	}
 
 	public static Cache of(String name, long timeOut) {
@@ -75,7 +75,7 @@ public class MapCache implements Cache {
 
 	@Override
 	public void put(Object key, Object value) {
-		long expireTime = timeOut > 0 ? System.currentTimeMillis() + timeOut : Long.MAX_VALUE;
+		long expireTime = timeout > 0 ? System.currentTimeMillis() + timeout : Long.MAX_VALUE;
 		cacheMap.put(key, ValExpire.valueOf(value, expireTime));
 	}
 

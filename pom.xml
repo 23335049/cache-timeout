@@ -39,5 +39,17 @@
             </plugin>
         </plugins>
     </build>
-
+    <!--私服仓库-->
+    <distributionManagement>
+        <repository>
+            <id>wangn-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://193.112.90.188:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>wangn-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://193.112.90.188:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

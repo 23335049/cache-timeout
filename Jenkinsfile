@@ -12,6 +12,12 @@ pipeline {
         sh 'mvn test'
       }
     }
+   stage('SonarQube analysis'){
+        def scannerHome = tool 'SonarQube Scanner'
+        withSonarQubeEnv('SonarQube Server') {
+            sh "${scannerHome}/bin/sonar-scanner"
+        }
+   }
     stage('deploy') {
       steps {
         sh 'mvn deploy -DskipTests'

@@ -14,7 +14,9 @@ pipeline {
     }
    stage('SonarQube analysis'){
      steps {
-       sh "sonar-scanner"
+       withSonarQubeEnv('SonarQube') {
+          sh "mvn -f pom.xml clean compile sonar:sonar"
+       }
      }
    }
     stage('deploy') {
